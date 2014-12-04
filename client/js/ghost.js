@@ -1,6 +1,6 @@
-/*global alert, console, angular */
+/*global console, angular */
 (function () {
-    "use strict";
+    'use strict';
 
     var app,
         api_url = 'http://localhost:8000/nextletter/';

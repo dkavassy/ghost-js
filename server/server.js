@@ -3,7 +3,7 @@
  */
 /*global require, console */
 (function () {
-    "use strict";
+    'use strict';
 
     var Hapi = require('hapi'),
         fs   = require('fs'),
@@ -170,8 +170,7 @@
                     }
 
                     // Losing, it seems :( Calculate max length
-                    max_losing_depth = depth > max_losing_depth
-                            ? depth : max_losing_depth;
+                    max_losing_depth = depth > max_losing_depth ? depth : max_losing_depth;
                 }
 
                 // If we haven't been here yet
