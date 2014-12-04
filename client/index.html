@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html data-ng-app="ghost">
+
+<head>
+
+<meta charset="UTF-8" />
+
+<title>Ghost v0.2</title>
+
+<link rel="stylesheet" href="css/ghost.css" />
+
+</head>
+
+<body data-ng-controller="GhostController as ghostCtrl">
+
+<div>
+
+    <h1>Ghost</h1>
+
+    <p>Type in a letter and press enter.</p>
+
+    <h2>{{ghostCtrl.word}}<span class="new-letter">{{ghostCtrl.letter}}</span></h2>
+
+    <form name="playForm" data-ng-submit="playForm.$valid && ghostCtrl.submitLetter()" novalidate>
+        <input type="text" data-ng-minlength="1" data-ng-maxlength="1" data-ng-model="ghostCtrl.letter" size="1" data-ng-hide="ghostCtrl.end" required />
+        <input type="submit" value="Play" data-ng-hide="ghostCtrl.end" />
+
+        <p>{{ghostCtrl.status}}</p>
+
+        <input type="button" value="New Game" data-ng-show="ghostCtrl.end" data-ng-click="ghostCtrl.newGame();" />
+    </form>
+    
+</div>
+
+<script src="js/angular.min.js"></script>
+<script src="js/ghost.js"></script>
+
+</body>
+
+</html>
