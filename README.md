@@ -1,17 +1,22 @@
+Ghost
+=====
+
 The solution is divided into two parts: server and client. They are found in
 server/ and client/ respectively.
 
 Server
 ------
 
-The server requires Hapi.js to work.
+The server requires Hapi.js to work, which can be installed using
 
-To start, use
+  npm install hapi
+
+To start the server, use
 
   node server.js
 
 It will start the server on port 8000, localhost.
-The host and port can be changed towards to top of server.js
+The host and port can be changed at the top of server.js
 
 Client
 ------
