@@ -30,4 +30,4 @@ Implementation notes
 
 The server was initially based on a naive array implementation, which was
 later replaced with a trie-based implementation. v0.2 puts more emphasis on
-structure and separation of concerns.
+structure and separation of concerns. v0.3 improves testability.

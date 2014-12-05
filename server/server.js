@@ -1,15 +1,16 @@
 /*
- * Ghost v0.2
+ * Ghost v0.3
  */
 /*global require, console */
-    var Hapi = require('hapi'),
-        fs   = require('fs'),
-        ghost = require('./ghost-server.js'),
-        host = 'localhost',
-        port = 8000,
-        server,
-        words,
-        Game;
+'use strict';
+var Hapi = require('hapi'),
+    fs   = require('fs'),
+    ghost = require('./ghost-server.js'),
+    host = 'localhost',
+    port = 8000,
+    server,
+    words,
+    Game;
 
 // Initialise server
 server = new Hapi.Server(host, port);
