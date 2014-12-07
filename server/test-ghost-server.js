@@ -107,10 +107,7 @@ exports.test_init = function (test) {
 // TrideModel._findFragment()
 exports.test_findFragment = function (test) {
     var words = ['asd', 'asg', 'acd', 'af'],
-        trie_model = new ghost.TrieModel(words, 3),
-        Node = trie_model._Node,
-        node,
-        actual_trie;
+        trie_model = new ghost.TrieModel(words, 3);
 
     test.deepEqual(trie_model._findFragment(['a', 's', 'g', 'f']), null, 'Word not found');
     test.deepEqual(trie_model._findFragment(['a', 's', 'g']), {'$': 1}, 'End of word found');
@@ -126,10 +123,17 @@ exports.test_findFragment = function (test) {
     test.deepEqual(trie_model._findFragment(['']), trie_model._trie);
     test.deepEqual(trie_model._findFragment(['a', '']), trie_model._trie.a);
 
-    // _getSubtrieCandidate()
-    words = ['asgf', 'asd', 'bsd'];
-    trie_model = new ghost.TrieModel(words, 3);
-    actual_trie = new Node();
+    test.done();
+};
+
+// TrieModel._isSubTrieWinnerOrLoser()
+exports.test_isSubTrieWinnerOrLoser = function (test) {
+    var words = ['asgf', 'asd', 'bsd'],
+        trie_model = new ghost.TrieModel(words, 3),
+        Node = trie_model._Node,
+        actual_trie = new Node(),
+        node;
+
     actual_trie.a = new Node();
     actual_trie.a.s = new Node();
     actual_trie.a.s.d = new Node();
@@ -146,19 +150,19 @@ exports.test_findFragment = function (test) {
 
     // a, s, g
     node = actual_trie.a.s.g;
-    test.deepEqual(trie_model._getSubtrieCandidate(node, 3, 0), {'winning': false, 'length': 4});
+    test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 3, 0), {'winning': false, 'length': 4});
 
     node = actual_trie.a.s.d;
-    test.deepEqual(trie_model._getSubtrieCandidate(node, 3, 0), {'winning': true, 'length': null});
+    test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 3, 0), {'winning': true, 'length': null});
 
     node = actual_trie.a;
-    test.deepEqual(trie_model._getSubtrieCandidate(node, 1, 0), {'winning': true, 'length': null});
+    test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 1, 0), {'winning': true, 'length': null});
 
     node = actual_trie.b.s;
-    test.deepEqual(trie_model._getSubtrieCandidate(node, 2, 0), {'winning': true, 'length': null});
+    test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 2, 0), {'winning': true, 'length': null});
 
     node = actual_trie.a.s;
-    test.deepEqual(trie_model._getSubtrieCandidate(node, 2, 0), {'winning': true, 'length': null});
+    test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 2, 0), {'winning': true, 'length': null});
 
     test.done();
 };

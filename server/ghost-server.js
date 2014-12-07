@@ -161,7 +161,7 @@ TrieModel.prototype = {
      * @return {Object} { winning: true when winning, false if losing,
      *                    length: max length of losing word in the subtrie when losing or null if winning }
      */
-    _getSubtrieCandidate: function (node, depth, losing) {
+    _isSubTrieWinnerOrLoser: function (node, depth, losing) {
         var j, // iterator
             S = [], // stack for DFS
             visited = [], // visited elements for DFS
@@ -248,7 +248,7 @@ TrieModel.prototype = {
 
             // Get a candidate from each subtree
             letter = branches[i];
-            candidate = this._getSubtrieCandidate(node[letter], depth + 1, (depth + 1) % 2);
+            candidate = this._isSubTrieWinnerOrLoser(node[letter], depth + 1, (depth + 1) % 2);
 
             // Determine whether it would make the computer win or lose
             if (candidate.winning) {
