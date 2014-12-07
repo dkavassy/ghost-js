@@ -20,7 +20,7 @@ server = new Hapi.Server(host, port);
 /*jslint node: true, stupid: true */
 words = fs.readFileSync('word.lst').toString().split('\n');
 
-Game = new ghost.Game(new ghost.TrieModel(words));
+Game = new ghost.Game(new ghost.TrieModel(words, 4));
 
 // Let the garbage collector free up memory
 words = null;

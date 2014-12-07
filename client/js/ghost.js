@@ -42,7 +42,7 @@
                     ghost.letter = '';
 
                     // Has anyone won? If so, update the status and end indicator
-                    if (data.win !== null) {
+                    if (data.win !== '') {
                         if (data.win === 'computer') {
                             ghost.status = 'Computer wins! ' + data.reason;
                         } else if (data.win === 'human') {
