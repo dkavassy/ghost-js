@@ -9,22 +9,30 @@ Server
 
 The server requires Hapi.js to work, which can be installed using
 
+```
   npm install hapi
+```
 
 To start the server, use
 
+```
   node server.js
+```
 
 It will start the server on port 8000, localhost.
 The host and port can be changed at the top of server.js
 
 Running unit tests requires nodeunit. Install it with
 
-  sudo npm install nodeunit -g
+```
+sudo npm install nodeunit -g
+```
 
 To run the unit tests, enter
 
+```
   nodeunit test-ghost-server.js
+```
 
 Client
 ------
