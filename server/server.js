@@ -1,6 +1,3 @@
-/*
- * Ghost v0.3
- */
 /*global require, console */
 'use strict';
 var Hapi = require('hapi'),
@@ -10,7 +7,7 @@ var Hapi = require('hapi'),
     port = 8000,
     server,
     words,
-    Game;
+    game;
 
 // Initialise server
 server = new Hapi.Server(host, port);
@@ -20,7 +17,8 @@ server = new Hapi.Server(host, port);
 /*jslint node: true, stupid: true */
 words = fs.readFileSync('word.lst').toString().split('\n');
 
-Game = new ghost.Game(new ghost.TrieModel(words, 4));
+// Start new game, min word length is 4
+game = new ghost.Game(new ghost.TrieModel(words, 4));
 
 // Let the garbage collector free up memory
 words = null;

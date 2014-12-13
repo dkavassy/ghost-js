@@ -234,7 +234,7 @@ TrieModel.prototype = {
      * @param  {Number} fragment_len Current depth in trie
      * @return {Object} {winners: ['x','y',...], losers: [{letter: 'a', length: 5},...]}
      */
-    _searchSubtries: function (node, depth) {
+    _getWinnersAndLosers: function (node, depth) {
         var i,
             letter,
             candidate,
@@ -304,7 +304,7 @@ TrieModel.prototype = {
         }
 
         // Get candidates from all sub-tries
-        return this._searchSubtries(cnode, fragment.length);
+        return this._getWinnersAndLosers(cnode, fragment.length);
     }
 };
 
