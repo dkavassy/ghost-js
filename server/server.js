@@ -31,7 +31,7 @@ server.route({
     handler: function (request, reply) {
 
         var response = reply(JSON.stringify(
-            Game.getNextLetter(request.params.word)
+            game.getNextLetter(request.params.word)
         ));
 
         response.type('application/json');

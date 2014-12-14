@@ -273,14 +273,17 @@ TrieModel.prototype = {
     // Public interface
 
     /**
-     * Gets winner candidate next letters for the given fragment
+     * Gets winning/losing candidate next letters for the given fragment
      * 
      * @param  {String} fragment Word fragment to search for
-     * @return {Object}          Winners, longest losers
+     * @return {Object} {winners: ['x','y'...], losers: [{letter: 'a', length: 5},...]}
+     *                  OR if computer won, {win: true why: no_word|valid_word} 
+     *                  no_word: no such word,
+     *                  valid_word: user has completed a valid word
      */
     getCandidatesFor: function (fragment) {
 
-        var cnode;
+        var cnode, ret;
 
         // Filter out any empty strings
 
@@ -288,29 +291,35 @@ TrieModel.prototype = {
         cnode = this._findFragment(fragment.split(''));
 
         if (cnode === null) {
-            throw {
-                letter: '',
-                win:    'computer',
-                reason: 'No word starts with these letters.'
+            return {
+                win: true,
+                why: 'no_word'
             };
         }
 
         // Word completed!
         if (cnode.isLeaf()) {
-            throw {
-                letter: '',
-                win:    'computer',
-                reason: 'You have completed a valid word.'
+            return {
+                win: true,
+                why: 'valid_word'
             };
         }
 
+        ret = this._getWinnersAndLosers(cnode, fragment.length);
+
         // Get candidates from all sub-tries
-        return this._getWinnersAndLosers(cnode, fragment.length);
+        return ret;
     }
 };
 
 // Game object
 Game = function (model) {
+
+    this._messages = {
+        'no_word':    'No word starts with these letters.',
+        'valid_word': 'You have completed a valid word.'
+    };
+
     this._model = model;
 };
 
@@ -350,21 +359,26 @@ Game.prototype = {
      * @return {Object}          The computer's choice and if winning
      */
     getNextLetter: function (wordfrag) {
-        var all_candidates,
+        var candidates,
             winners = [], // winning candidates
             losers = [],  // loser candidates (longest of each subtrie)
             longest_losers = []; // maximum length losers
 
         // Get candidates from model
-        try {
-            all_candidates = this._model.getCandidatesFor(wordfrag);
-        } catch (e) {
-            return e;
+        candidates = this._model.getCandidatesFor(wordfrag);
+
+        // Check if computer has won
+        if (candidates.win) {
+            return {
+                letter: '',
+                win:    'computer',
+                reason: this._messages[candidates.why]
+            };
         }
 
         // Shorter names
-        winners = all_candidates.winners;
-        losers  = all_candidates.losers;
+        winners = candidates.winners;
+        losers  = candidates.losers;
 
         // If we've got any winners, select a winner
         if (winners.length) {

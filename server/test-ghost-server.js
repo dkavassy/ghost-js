@@ -248,8 +248,7 @@ exports.test_getWinnersAndLosers = function (test) {
 exports.testGetCandidatesFor = function (test) {
     var trie_model = new ghost.TrieModel([], 0),
         Node = trie_model._Node,
-        actual_trie = new Node(),
-        error;
+        actual_trie = new Node();
 
     actual_trie.a = new Node();
     actual_trie.a.s = new Node();
@@ -277,41 +276,25 @@ exports.testGetCandidatesFor = function (test) {
     test.deepEqual(trie_model.getCandidatesFor(''),
         {winners: ['a'], losers: [{letter: 'b', length: 3}]});
 
-    try {
-        trie_model.getCandidatesFor('asd');
-    } catch (err) {
-        error = err;
-    }
-    test.deepEqual(error, {letter: '',
-                    win:    'computer',
-                    reason: 'You have completed a valid word.'});
+    test.deepEqual(trie_model.getCandidatesFor('asd'), {
+        win:  true,
+        why: 'valid_word'
+    });
 
-    try {
-        trie_model.getCandidatesFor('asgf');
-    } catch (err) {
-        error = err;
-    }
-    test.deepEqual(error, {letter: '',
-                    win:    'computer',
-                    reason: 'You have completed a valid word.'});
+    test.deepEqual(trie_model.getCandidatesFor('asgf'), {
+        win:  true,
+        why: 'valid_word'
+    });
 
-    try {
-        trie_model.getCandidatesFor('asdf');
-    } catch (err) {
-        error = err;
-    }
-    test.deepEqual(error, {letter: '',
-                    win:    'computer',
-                    reason: 'No word starts with these letters.'});
+    test.deepEqual(trie_model.getCandidatesFor('asdf'), {
+        win:  true,
+        why: 'no_word'
+    });
 
-    try {
-        trie_model.getCandidatesFor('csdf');
-    } catch (err) {
-        error = err;
-    }
-    test.deepEqual(error, {letter: '',
-                    win:    'computer',
-                    reason: 'No word starts with these letters.'});
+    test.deepEqual(trie_model.getCandidatesFor('csdf'), {
+        win:  true,
+        why: 'no_word'
+    });
 
     test.deepEqual(trie_model.getCandidatesFor('asg'), {winners: [],
         losers: [{letter: 'f', length: 4}]});
