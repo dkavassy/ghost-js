@@ -184,19 +184,19 @@ exports.test_isSubTrieWinnerOrLoser = function (test) {
 
     node = actual_trie.a.s.d;
     test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 3, 0),
-        {'winning': true, 'length': null});
+        {'winning': true});
 
     node = actual_trie.a;
     test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 1, 0),
-        {'winning': true, 'length': null});
+        {'winning': true});
 
     node = actual_trie.b.s;
     test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 2, 0),
-        {'winning': true, 'length': null});
+        {'winning': true});
 
     node = actual_trie.a.s;
     test.deepEqual(trie_model._isSubTrieWinnerOrLoser(node, 2, 0),
-        {'winning': true, 'length': null});
+        {'winning': true});
 
     test.done();
 };
@@ -238,7 +238,7 @@ exports.test_getWinnersAndLosers = function (test) {
         {'winners': ['a'], 'losers': [{letter: 'b', length: 3}]});
 
     // full word
-    test.deepEqual(trie_model._getWinnersAndLosers(actual_trie.b.s.d, 1),
+    test.deepEqual(trie_model._getWinnersAndLosers(actual_trie.b.s.d, 3),
         {'winners': [], 'losers': []});
 
     test.done();

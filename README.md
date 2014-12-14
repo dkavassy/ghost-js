@@ -31,8 +31,23 @@ sudo npm install nodeunit -g
 To run the unit tests, enter
 
 ```
-  nodeunit test-ghost-server.js
+nodeunit test-ghost-server.js
 ```
+
+or use Jasmine. Install it with
+
+```
+sudo npm install jasmine-node -g
+```
+
+then run it with
+
+```
+jasmine-node .
+```
+
+Note: Jasmine specs are incomplete. They do provide better isolation, however,
+by using spies.
 
 Client
 ------
@@ -47,4 +62,4 @@ Implementation notes
 The server was initially based on a naive array implementation, which was
 later replaced with a trie-based implementation. v0.2 puts more emphasis on
 the structure and the separation of concerns. v0.3 improves testability.
-v0.4 adds unit tests
+v0.4 adds unit tests.

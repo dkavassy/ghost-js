@@ -155,13 +155,13 @@ TrieModel.prototype = {
      * Looks for winning and completitons of the word from the given node
      * Based on iterative DFS
      *
-     * @param {Node}   node   Node to start search at
-     * @param {Number} depth  Current length of fragment
-     * @param {Number} losing When would the computer be losing (word_length % no_players)
+     * @param {Node}   node           Node to start search at
+     * @param {Number} depth          Current length of fragment
+     * @param {Number} computers_turn Which one is the computer's turn i.e. the computer would be losing if word_length % no_players === computers_turn
      * @return {Object} { winning: true when winning, false if losing,
      *                    length: max length of losing word in the subtrie when losing or null if winning }
      */
-    _isSubTrieWinnerOrLoser: function (node, depth, losing) {
+    _isSubTrieWinnerOrLoser: function (node, depth, computers_turn) {
         var j, // iterator
             S = [], // stack for DFS
             visited = [], // visited elements for DFS
@@ -186,11 +186,11 @@ TrieModel.prototype = {
             // otherwise calculate the max length of a losing word
             if (node.isLeaf()) {
 
-                if (depth % 2 !== losing) {
+                if (depth % 2 !== computers_turn) {
                     // Winning
                     return {
-                        winning: true,
-                        length:  null // irrelevant
+                        winning: true
+                        // length irrelevant
                     };
                 }
 
@@ -248,7 +248,8 @@ TrieModel.prototype = {
 
             // Get a candidate from each subtree
             letter = branches[i];
-            candidate = this._isSubTrieWinnerOrLoser(node[letter], depth + 1, (depth + 1) % 2);
+            candidate = this._isSubTrieWinnerOrLoser(node[letter], depth + 1,
+                (depth + 1) % 2);
 
             // Determine whether it would make the computer win or lose
             if (candidate.winning) {
