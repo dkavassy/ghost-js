@@ -1,11 +1,11 @@
-Ghost
-=====
+# Ghost Game
+
+This was a solution to a programming challenge for an interview, practically the first thing I'd ever done in node.js
 
 The solution is divided into two parts: server and client. They are found in
 server/ and client/ respectively.
 
-Server
-------
+## Server
 
 The server requires Hapi.js to work, which can be installed using
 
@@ -49,17 +49,8 @@ jasmine-node .
 Note: Jasmine specs are incomplete. They do provide better isolation, however,
 by using spies.
 
-Client
-------
+## Client
 
 Open index.html in Chrome and everything should be working.
 
 The access point URL is configurable at the top of js/ghost.js
-
-Implementation notes
---------------------
-
-The server was initially based on a naive array implementation, which was
-later replaced with a trie-based implementation. v0.2 puts more emphasis on
-the structure and the separation of concerns. v0.3 improves testability.
-v0.4 adds unit tests.
